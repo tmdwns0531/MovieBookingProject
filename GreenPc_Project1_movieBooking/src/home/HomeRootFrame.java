@@ -17,7 +17,7 @@ public class HomeRootFrame extends JFrame implements ActionListener {
 	LoginMainFrame logM = new LoginMainFrame();
 	BoxOfficeMainFrame boxOfficeM = new BoxOfficeMainFrame();
 	MovieBookingMainFrame movieBM = new MovieBookingMainFrame();
-	MyPageMainFrame mypageM = new MyPageMainFrame();;
+	MyPageMainFrame mypageM = new MyPageMainFrame();
 
 	Home home = new Home();
 	Login lg = logM.getLoginInstance();
