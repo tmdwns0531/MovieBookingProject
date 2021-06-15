@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.BookingDAO">
+
+	<!-- 날짜조회 -->
+	<select id="selectAll" parameterType="String"
+		resultType="vo.ScreeningVo">
+		select distinct screening_year, screening_month,
+		screening_date from viewing_timetable
+		where name = #{movieNm}
+	</select>
+
+	<select id="selectYears" parameterType="String"
+		resultType="vo.ScreeningVo">
+		select distinct screening_year
+		from viewing_timetable
+		where
+		name = #{movieNm}
+		order by 1
+	</select>
+	<select id="selectMonths" parameterType="String"
+		resultType="vo.ScreeningVo">
+		select distinct screening_month
+		from viewing_timetable
+		where
+		name = #{movieNm}
+		order by 1
+	</select>
+	<select id="selectDates" parameterType="String"
+		resultType="vo.ScreeningVo">
+		select distinct screening_date
+		from viewing_timetable
+		where
+		name = #{movieNm}
+		order by 1
+	</select>
+
+
+	<!-- 날짜 > 상영시간 조회 -->
+	<select id="selectAllTheater" parameterType="HashMap"
+		resultType="vo.ScreeningVo">
+		select distinct theater_code, screening_time from
+		viewing_timetable
+		where name = #{movieNm}
+		and screening_year =
+		#{screening_year}
+		and screening_month =
+		#{screening_month}
+		and
+		screening_date= #{screening_date}
+		order by 1
+	</select>
+
+	<!-- 상영관별 seat code -->
+	<select id="selectAllSeats" parameterType="String"
+		resultType="string">
+		select seat_code
+		from seat
+		where theater_code =
+		#{theaterCode}
+	</select>
+
+
+	<!-- seat 별 price -->
+	<select id="selectPrice" parameterType="String" resultType="int">
+		select seat_price
+		from price
+	</select>
+
+	<!-- 해당 상영시간 좌석 예약 현황 -->
+	<select id="selectBookingStateSeat" parameterType="HashMap"
+		resultType="string">
+		select booking_seat
+		from viewing_booking
+		where booking_movie
+		= #{movie}
+		and booking_theater = #{theater}
+		and booking_year = #{year}
+		and booking_month = #{month}
+		and booking_date = #{date}
+		and booking_time
+		= #{time}
+	</select>
+
+	<!-- select user table's idx -->
+	<select id="selectUserIDX" parameterType="string"
+		resultType="int">
+		select idx from member_info where user_id = #{myID}
+	</select>
+
+	<!-- insert into booking table -->
+	<select id="insertBooking" parameterType="HashMap"
+		resultType="int">
+		insert into booking
+		(idx, booking_theater, booking_movie,
+		booking_time, booking_seat,
+		member_id, booking_year, booking_month,
+		booking_date, booking_price)
+		values (seq_booking_idx.NEXTVAL,
+		#{theater}, #{movie} , #{time},
+		#{seat},#{userIDX} , #{year}, #{month}
+		, #{date}, #{price} )
+	</select>
+
+	<select id="selectMyBookingHistoryDate" parameterType="int"
+		resultType="vo.BookingVo">
+		select distinct booking_movie, booking_theater,
+		booking_year, booking_month,
+		booking_date , booking_time from booking
+		where member_id = #{IDX}
+	</select>
+
+
+	<select id="selectSeatPriceList" parameterType="HashMap"
+		resultType="vo.BookingVo">
+		select booking_seat, booking_price from booking
+		where
+		booking_theater = #{theater} and
+		booking_movie= #{movie} and
+		booking_year = #{year} and
+		booking_month = #{month} and
+		booking_date =
+		#{date} and
+		booking_time = #{time}
+	</select>
+
+	<!-- cancle booking -->
+	<select id="cancleBooking" parameterType="HashMap"
+		resultType="int">
+		delete from booking where member_id = #{idx} and
+		booking_movie = #{movie} and
+		booking_theater = #{theater} and
+		booking_year = #{year} and
+		booking_month = #{month} and
+		booking_date =#{date} and
+		booking_time = #{time}
+	</select>
+</mapper>
