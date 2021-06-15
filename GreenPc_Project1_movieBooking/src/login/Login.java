@@ -56,6 +56,7 @@ public class Login extends JPanel {
 		String id = tfID.getText();
 		char[] pw_t = tfPW.getPassword();
 		String pw = String.valueOf(pw_t);
+		;
 
 		List<MemberVo> li = MemberDAO.getInstance().list();
 
