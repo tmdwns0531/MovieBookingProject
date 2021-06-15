@@ -43,7 +43,6 @@ public class MyPageMainFrame extends JFrame implements ActionListener {
 			mh.bh.listP.revalidate();
 			mh.bh.listP.repaint();
 			String myID = HomeRootFrame.getSessionID();
-			myID = "tmdwns0531";
 			if (myID == null || myID.length() == 0) {
 				JOptionPane.showMessageDialog(null, "로그인 후 이용가능합니다", "check fail", JOptionPane.ERROR_MESSAGE);
 				return;

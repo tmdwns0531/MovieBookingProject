@@ -63,7 +63,7 @@ public class MovieInfo extends JPanel {
 		back.setBounds(30, 550, 50, 50);
 	}
 
-	public void showInfo(String movieCode) {
+	void showInfo(String movieCode) {
 
 		Map<String, String> map = BoxOfficeMovieInfoAPI.requestAPI(movieCode);
 

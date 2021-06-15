@@ -28,7 +28,7 @@ public class HomeRootFrame extends JFrame implements ActionListener {
 
 	JLabel userIDL = new JLabel("접속 아이디 :  " + userID);
 
-	public HomeRootFrame() {
+	HomeRootFrame() {
 
 		// setVisible
 		logM.dispose();

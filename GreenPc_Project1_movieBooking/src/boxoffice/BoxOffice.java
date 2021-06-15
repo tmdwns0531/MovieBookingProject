@@ -108,7 +108,7 @@ public class BoxOffice extends JPanel {
 
 	}
 
-	public JPanel showBoxOffice(String type, JPanel panel) {
+	JPanel showBoxOffice(String type, JPanel panel) {
 
 		final int ROW;
 		List<String> list = new ArrayList<String>();

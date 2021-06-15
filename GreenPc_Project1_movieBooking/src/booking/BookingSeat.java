@@ -106,7 +106,7 @@ public class BookingSeat extends JFrame implements ItemListener {
 		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 	}
 
-	public void showBookingState(List<String> m_info) {
+	void showBookingState(List<String> m_info) {
 
 		movieNm = m_info.get(0); // TITLE
 		theater = m_info.get(1);
@@ -181,7 +181,7 @@ public class BookingSeat extends JFrame implements ItemListener {
 
 	}
 
-	public void controlSeatBtn() {
+	void controlSeatBtn() {
 
 		seatCode = new Vector<>();
 		seatPrice = new Vector<>();
@@ -303,7 +303,7 @@ public class BookingSeat extends JFrame implements ItemListener {
 
 	}
 
-	public int actionBookingRS() {
+	int actionBookingRS() {
 		// TODO Auto-generated method stub
 
 		if (countSeats < checkHead) {

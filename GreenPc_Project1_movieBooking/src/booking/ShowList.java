@@ -71,7 +71,7 @@ public class ShowList extends JPanel {
 		}
 	}
 
-	public void showList() {
+	void showList() {
 
 		movieLists = BoxOffice.getMovieLists(); // 주간 박스오피스 리스트
 

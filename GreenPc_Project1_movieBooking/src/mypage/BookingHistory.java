@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import home.*;
 import service.*;
 import vo.*;
 
@@ -24,7 +25,7 @@ public class BookingHistory extends JPanel {
 	JButton back = new JButton("◀");
 	int IDX;
 
-	public BookingHistory() {
+	BookingHistory() {
 		// TODO Auto-generated constructor stub
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(null);
@@ -39,8 +40,7 @@ public class BookingHistory extends JPanel {
 		back.setBounds(30, 550, 50, 50);
 	}
 
-	public void showBookingTable(String myID) {
-		myID = "tmdwns0531";
+	void showBookingTable(String myID) {
 		IDX = service.selectUserIDX(myID);
 
 		List<BookingVo> bookingList = service.selectMyBookingHistoryDate(IDX); // 해당아이디가 예약한 < 영화 , 상영관, 연도, 월 ,일> 정보
@@ -120,7 +120,7 @@ public class BookingHistory extends JPanel {
 
 		JButton jb;
 
-		public TableCell() {
+		TableCell() {
 			// TODO Auto-generated constructor stub
 
 			jb = new JButton("예매취소");
@@ -172,7 +172,7 @@ public class BookingHistory extends JPanel {
 						listP.removeAll();
 						listP.revalidate();
 						listP.repaint();
-						showBookingTable("tmdwns0531");
+						showBookingTable(HomeRootFrame.getSessionID());
 						return;
 					} else {
 						JOptionPane.showMessageDialog(null, "예매취소가 불가합니다", "check success", JOptionPane.ERROR_MESSAGE);

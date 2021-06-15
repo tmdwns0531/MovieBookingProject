@@ -27,7 +27,6 @@ public class Home extends JPanel {
 		add(p1);
 		p1.setLayout(null);
 		p1.setBounds(0, 30, 500, 600);
-		p1.setBackground(Color.red);
 
 		p1.add(goLogin).setBounds((int) bf.getX() + 80, (int) bf.getY() + 50, (int) bf.getWidth(),
 				(int) bf.getHeight());

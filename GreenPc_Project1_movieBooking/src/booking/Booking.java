@@ -91,7 +91,7 @@ public class Booking extends JFrame implements ActionListener, ItemListener {
 
 	}
 
-	public void showBookingTable(String movieNm) {
+	void showBookingTable(String movieNm) {
 
 		this.movieNm.setText("영화 이름");
 		this.movieName = movieNm;
@@ -134,7 +134,7 @@ public class Booking extends JFrame implements ActionListener, ItemListener {
 		comboDates.addItemListener(this);
 	}
 
-	public void bookingAction() {
+	void bookingAction() {
 		// add action radio btn
 		for (int i = 0; i < rb.length; i++) {
 			rb[i].addActionListener((event) -> {

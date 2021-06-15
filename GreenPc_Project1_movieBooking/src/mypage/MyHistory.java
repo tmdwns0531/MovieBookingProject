@@ -15,7 +15,7 @@ public class MyHistory extends JPanel {
 
 	JButton back = new JButton("¢¸");
 
-	public MyHistory() {
+	MyHistory() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
 
