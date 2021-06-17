@@ -20,7 +20,7 @@ public class Home extends JPanel {
 
 	Rectangle bf = new Rectangle(50, 50, 100, 80);
 
-	public Home() {
+	Home() {
 		// TODO Auto-generated constructor stub
 		setLayout(null);
 		setBounds(0, 0, 500, 650);

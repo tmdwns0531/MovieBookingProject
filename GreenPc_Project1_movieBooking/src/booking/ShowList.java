@@ -83,7 +83,7 @@ public class ShowList extends JPanel {
 			System.out.println(movies[i]);
 
 			JPanel panel = new JPanel();
-			MovieInfo.showImage(movies[i], panel);
+			MovieInfo.showImage(movies[i], panel, "Booking");
 			pParent.add(panel);
 
 			// add select btn

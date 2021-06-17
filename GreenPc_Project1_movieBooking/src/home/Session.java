@@ -36,7 +36,6 @@ public class Session {
 				e.getMessage();
 			}
 		}
-
 	}
 
 	public void logout() {

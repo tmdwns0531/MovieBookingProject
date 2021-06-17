@@ -103,14 +103,14 @@ public class MovieInfo extends JPanel {
 		}
 
 		// for posterImg
-		showImage(movieName, p1);
+		showImage(movieName, p1, "BoxOffice");
 		// for userRating
 
 		userRating.setText("네이버 평점 (관람객) : " + MoviePosterAPI.getUserRating() + " ★ ");
 
 	}
 
-	public static Image showImage(String movieNm, JPanel panel) {
+	public static Image showImage(String movieNm, JPanel panel, String type) {
 		Image posterIMG = null;
 		URL imgURL = null;
 		try {
@@ -127,9 +127,15 @@ public class MovieInfo extends JPanel {
 		try {
 
 			posterIMG = ImageIO.read(imgURL);
+			ImageIcon img = null;
 
 			// for posterImg
-			ImageIcon img = new ImageIcon(posterIMG.getScaledInstance(150, 200, Image.SCALE_SMOOTH));
+			if (type.equals("Booking")) {
+				img = new ImageIcon(posterIMG.getScaledInstance(150, 200, Image.SCALE_SMOOTH));
+			} else if (type.equals("BoxOffice")) {
+				img = new ImageIcon(posterIMG.getScaledInstance(300, 500, Image.SCALE_SMOOTH));
+			}
+
 			JLabel posterIcon = new JLabel(img);
 			panel.add(posterIcon);
 

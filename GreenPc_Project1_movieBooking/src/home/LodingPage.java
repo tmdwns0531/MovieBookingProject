@@ -9,7 +9,7 @@ public class LodingPage extends JFrame {
 	JLabel alert = new JLabel(" ·Î µù Áß .. ");
 	Font font2 = new Font("monospaced", Font.BOLD | Font.ITALIC, 40);
 
-	public LodingPage() {
+	LodingPage() {
 		// TODO Auto-generated constructor stub
 		setLayout(null);
 		setSize(800, 650);
