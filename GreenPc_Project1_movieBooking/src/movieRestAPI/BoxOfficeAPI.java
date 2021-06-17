@@ -61,6 +61,7 @@ public class BoxOfficeAPI {
 				cal.add(Calendar.DATE, -1);
 
 				System.out.println(DATE_URL_FMT.format(cal.getTime()));
+				;
 
 				// 변수 설정
 				// - 요청(Request) 인터페이스 Map
