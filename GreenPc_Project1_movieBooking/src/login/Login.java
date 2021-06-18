@@ -57,6 +57,16 @@ public class Login extends JPanel {
 		char[] pw_t = tfPW.getPassword();
 		String pw = String.valueOf(pw_t);
 
+		if (id.length() == 0) {
+			JOptionPane.showMessageDialog(null, "아이디를 입력해주세요", "check fail", JOptionPane.ERROR_MESSAGE);
+			tfID.grabFocus();
+			return false;
+		} else if (pw.length() == 0) {
+			JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요", "check fail", JOptionPane.ERROR_MESSAGE);
+			tfPW.grabFocus();
+			return false;
+		}
+
 		List<MemberVo> li = MemberDAO.getInstance().list();
 
 		boolean check = true;
@@ -76,6 +86,7 @@ public class Login extends JPanel {
 				System.out.println(" 비밀번호 불일치 !! ");
 				check = true;
 				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다", "login fail", JOptionPane.ERROR_MESSAGE);
+				return false;
 			}
 		}
 
@@ -86,6 +97,11 @@ public class Login extends JPanel {
 		return false;
 
 	};
+
+	public void resetInfoTextfied() {
+		this.tfID.setText("");
+		this.tfPW.setText("");
+	}
 
 	public Button getHomeButton() {
 		return this.goHome;

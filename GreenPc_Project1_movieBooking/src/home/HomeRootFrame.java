@@ -21,6 +21,7 @@ public class HomeRootFrame extends JFrame implements ActionListener {
 
 	Home home = new Home();
 	Login lg = logM.getLoginInstance();
+
 	BoxOffice bo = boxOfficeM.getBoxOfficeInstance();
 	MovieBookingHome mb = movieBM.getMovieBookingInstance();
 	ShowList bk = movieBM.getBookingInstance();
@@ -106,6 +107,7 @@ public class HomeRootFrame extends JFrame implements ActionListener {
 				logM.getLoginInstance().setLogOutSessionID();
 				userID = lg.sessionID();
 				userIDL.setText("접속 아이디 :  " + userID);
+				lg.resetInfoTextfied();
 				home.goLogin.setVisible(true);
 				home.LogOut.setVisible(false);
 			}

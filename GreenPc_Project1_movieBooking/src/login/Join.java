@@ -5,44 +5,50 @@ import java.util.List;
 
 import javax.swing.*;
 
+import authentication.*;
 import dao.*;
 import vo.*;
 
 class Join extends JPanel {
 
-	JPanel p, p1, p2, titleP1, titleP2;
-	JButton signUp, back, checkID;
-	JLabel title, title2, id, pw, pw2, name, gender, phon_num, email, create_date, t1;
-	JTextField tfID, tfNAME, tfPH_NUM, tfEMAIL;
+	JPanel p, p1, p2, p3, titleP1, titleP2;
+	JButton signUp, back, checkID, checkEmale;
+	JLabel title, title2, id, pw, pw2, name, gender, phon_num, email, create_date, t1, authCode;
+	JTextField tfID, tfNAME, tfPH_NUM, tfEMAIL, tfAuthCode;
 	JPasswordField tfPW, tfPW2;
 	CheckboxGroup cg;
 	Checkbox cbM, cbW;
-	String onchangeID = "";
-	boolean checkForDuplication;
-	boolean succesJoin;
+	boolean checkForDuplication, checkForAuthEmail, succesJoin;
 	Font fon1, font2;
+
+	String onchangeID = "";
 
 	Join() {
 		p = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		p1 = new JPanel(new FlowLayout(FlowLayout.LEADING));
 		p2 = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p2 = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p3 = new JPanel(new FlowLayout(FlowLayout.LEADING));
+
 		titleP1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		titleP2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		title = new JLabel(" [ 회원 ");
 		title2 = new JLabel("가입 ] ");
-		id = new JLabel("     * 회원 ID             ");
+		id = new JLabel("     * 회원 ID          ");
 		pw = new JLabel("     * 비밀번호 ");
 		pw2 = new JLabel("     * 비밀번호 확인 ");
 		t1 = new JLabel("(특수문자 / 문자 / 숫자 포함 형태의 8~15자리)");
 		name = new JLabel("     * 이 름 ");
 		gender = new JLabel("     * 성 별 ");
 		phon_num = new JLabel("     * 휴대전화 (ex.010-0000-0000) ");
-		email = new JLabel("     * 이메일 ");
+		email = new JLabel("     * 이메일             ");
+		authCode = new JLabel("     *이메일 인증번호");
 
 		signUp = new JButton("등록");
 		back = new JButton("취소");
 		checkID = new JButton("아이디 중복검사");
+		checkEmale = new JButton("이메일 인증");
 
 		tfID = new JTextField();
 		tfPW = new JPasswordField();
@@ -50,6 +56,7 @@ class Join extends JPanel {
 		tfNAME = new JTextField();
 		tfPH_NUM = new JTextField();
 		tfEMAIL = new JTextField();
+		tfAuthCode = new JTextField();
 		cg = new CheckboxGroup();
 		cbM = new Checkbox("남 성", true, cg);
 		cbW = new Checkbox("여 성", false, cg);
@@ -95,8 +102,13 @@ class Join extends JPanel {
 
 		add(phon_num);
 		add(tfPH_NUM);
-		add(email);
+		add(p3);
+		p3.setBackground(Color.LIGHT_GRAY);
+		p3.add(email);
+		p3.add(checkEmale);
 		add(tfEMAIL);
+		add(authCode);
+		add(tfAuthCode);
 		add(signUp);
 		add(back);
 
@@ -112,6 +124,7 @@ class Join extends JPanel {
 		gender.setFont(font2);
 		phon_num.setFont(font2);
 		email.setFont(font2);
+		authCode.setFont(font2);
 
 		// 아이디 중복 검사
 		checkID.addActionListener(event -> {
@@ -135,11 +148,33 @@ class Join extends JPanel {
 				JOptionPane.showMessageDialog(null, "사용가능한 ID 입니다", "check success", JOptionPane.INFORMATION_MESSAGE);
 				checkForDuplication = true;
 				onchangeID = tfID.getText();
-
 			}
-
 		});
 
+		// 이메일 인증
+		checkEmale.addActionListener((event) -> {
+
+			if (tfEMAIL.getText().length() == 0) {
+				JOptionPane.showMessageDialog(null, "이메일을 입력하세요.", "check fail", JOptionPane.ERROR_MESSAGE);
+				tfEMAIL.grabFocus();
+				return;
+			} else if (tfEMAIL.getText().contains(" ")) {
+				JOptionPane.showMessageDialog(null, "이메일에 공백이 포함되었습니다", "check fail", JOptionPane.ERROR_MESSAGE);
+				tfEMAIL.grabFocus();
+				return;
+			} else if (!(tfEMAIL.getText().matches("^[a-z0-9A-Z._-]*@[a-z0-9A-Z]*.[a-zA-Z.]*$"))) {
+				JOptionPane.showMessageDialog(null, "이메일 형식이 맞지 않습니다", "check fail", JOptionPane.ERROR_MESSAGE);
+				tfEMAIL.grabFocus();
+				return;
+			}
+
+			if (PostMan.sendCodeToEmail() == 0) {
+				JOptionPane.showMessageDialog(null, "인증번호를 발송했습니다", "check success", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "인증번호발송 실패 *개발자 문의*", "check fail", JOptionPane.ERROR_MESSAGE);
+			}
+			System.out.println("이메일 코드입력 : " + PostMan.getCode());
+		});
 	}
 
 	// 회원가입 등록버튼
@@ -199,7 +234,7 @@ class Join extends JPanel {
 		u_email = list[5];
 		gender = list[6];
 
-		if (!(onchangeID.equals(tfID.getText()))) {
+		if (!onchangeID.equals(tfID.getText())) {
 			checkForDuplication = false;
 		}
 
@@ -263,12 +298,29 @@ class Join extends JPanel {
 			return -1;
 		}
 
+		// 정규식 패턴 체크
 		if (checkPattern(list) == -1) {
 			return -1;
 		}
 
-		JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다", "join success", JOptionPane.INFORMATION_MESSAGE);
+		if (tfAuthCode.getText().length() == 0) {
+			JOptionPane.showMessageDialog(null, "인증번호를 입력하세요.", "check fail", JOptionPane.ERROR_MESSAGE);
+			tfEMAIL.grabFocus();
+			return -1;
+		} else if (tfAuthCode.getText().contains(" ")) {
+			JOptionPane.showMessageDialog(null, "인증번호에 공백이 포함되었습니다", "check fail", JOptionPane.ERROR_MESSAGE);
+			tfEMAIL.grabFocus();
+			return -1;
+		}
 
+		// 이메일 코드 인증
+		if (authEmailCode() == -1) {
+			JOptionPane.showMessageDialog(null, "이메일 인증번호가 일치하지 않습니다", "check fail", JOptionPane.ERROR_MESSAGE);
+			tfAuthCode.grabFocus();
+			return -1;
+		}
+
+		JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다", "join success", JOptionPane.INFORMATION_MESSAGE);
 		return 0;
 	}
 
@@ -313,6 +365,14 @@ class Join extends JPanel {
 		return 0;
 	}
 
+	private int authEmailCode() {
+		if (tfAuthCode.getText().equals(PostMan.getCode())) {
+			return 0;
+		} else {
+			return -1;
+		}
+	}
+
 	boolean backAction() {
 
 		int result = JOptionPane.showConfirmDialog(null, " 회원가입을 취소하시겠습니까? ", "Confirm", JOptionPane.YES_NO_OPTION);
@@ -324,4 +384,5 @@ class Join extends JPanel {
 		}
 		return false;
 	}
+
 }
