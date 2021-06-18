@@ -11,7 +11,7 @@ import javax.mail.internet.*;
  */
 public class MailTest {
 
-	public void sendEmail(String from, String to, String cc, String subject, String content) throws Exception {
+	void sendEmail(String from, String to, String cc, String subject, String content) throws Exception {
 
 		// Properties 설정
 		// 프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)

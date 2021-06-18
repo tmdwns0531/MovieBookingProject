@@ -168,7 +168,7 @@ class Join extends JPanel {
 				return;
 			}
 
-			if (PostMan.sendCodeToEmail() == 0) {
+			if (PostMan.sendCodeToEmail(tfEMAIL.getText()) == 0) {
 				JOptionPane.showMessageDialog(null, "인증번호를 발송했습니다", "check success", JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(null, "인증번호발송 실패 *개발자 문의*", "check fail", JOptionPane.ERROR_MESSAGE);

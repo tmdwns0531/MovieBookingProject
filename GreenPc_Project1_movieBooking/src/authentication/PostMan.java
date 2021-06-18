@@ -36,11 +36,11 @@ public class PostMan {
 		return buffer.toString();
 	}
 
-	public static int sendCodeToEmail() {
+	public static int sendCodeToEmail(String to) { // 메일 받는 사람
 		code = getAuthCode();
 
 		String from = "tmdwns0535@gmail.com"; // 메일 보내는 사람
-		String to = "tmdwns0531@naver.com"; // 메일 보낼사람
+
 		String cc = "cc@daum.net"; // 참조
 		String subject = "[STAR CINEMA] 이메일 인증번호 요청";// 제목
 		String content = " 아래의 인증번호를 입력해주세요. \n " + "[ " + code + " ]";// 내용
@@ -68,7 +68,6 @@ public class PostMan {
 			}
 		}
 		return 0;
-
 	}
 
 	public static String getCode() {

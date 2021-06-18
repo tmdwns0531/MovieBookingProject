@@ -90,7 +90,6 @@ public class MoviePosterAPI {
 			// °´Ã¼ item[0]
 			JSONObject itemObj = (JSONObject) items.get(0);
 			imgURL = itemObj.get("image").toString();
-
 			// °´Ã¼ userRating
 			userRating = itemObj.get("userRating").toString();
 

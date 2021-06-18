@@ -1,7 +1,9 @@
 package booking;
 
 import java.awt.*;
+import java.net.*;
 
+import javax.imageio.*;
 import javax.swing.*;
 
 public class MovieBookingHome extends JPanel {
@@ -12,7 +14,6 @@ public class MovieBookingHome extends JPanel {
 
 	Font font1 = new Font("monospaced", Font.BOLD | Font.ITALIC, 25);
 	Font font2 = new Font("monospaced", Font.BOLD | Font.ITALIC, 15);
-	ImageIcon icon;
 
 	public MovieBookingHome() {
 		// TODO Auto-generated constructor stub
@@ -31,7 +32,7 @@ public class MovieBookingHome extends JPanel {
 
 		add(pParent);
 		pParent.setBounds(100, 100, 600, 400);
-		pParent.setBackground(Color.CYAN);
+		pParent.setBackground(Color.LIGHT_GRAY);
 
 		// add goMovie btn
 		add(goMovie);
@@ -42,10 +43,21 @@ public class MovieBookingHome extends JPanel {
 		add(back);
 		back.setBounds(30, 520, 50, 50);
 
-//		Image background = new ImageIcon(MovieBookingHome.class.getResource("../cinemaPoster.png")).getImage();
+		URL url = null;
+		Image background = null;
 
-//		JLabel posterIcon = new JLabel(new ImageIcon(background));
-//		pParent.add(posterIcon);
+		try {
+
+			url = new URL("https://cdn.pixabay.com/photo/2015/09/02/12/45/movie-918655_960_720.jpg");
+			background = ImageIO.read(url);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		ImageIcon img = new ImageIcon(background.getScaledInstance(600, 400, Image.SCALE_SMOOTH));
+
+		JLabel posterIcon = new JLabel(img);
+		pParent.add(posterIcon);
 
 	}
 
